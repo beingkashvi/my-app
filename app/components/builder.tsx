@@ -1,8 +1,13 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 const Builder = () => {
+  const [customFields, setCustomFields] = useState<{ label: string; value:string}[]>([]);
+  const addCustomField = () => {
+    setCustomFields([...customFields, {label:"",value:""}]);
+  };
   return (
-    // <div className="bg-white text-white p-6">
+    
       <div className="bg-black p-6 rounded absolute inset-y-0 left-0">
         <h2 className="text-2xl font-bold mb-4">Your details:</h2>
         <form className="space-y-8">
@@ -44,8 +49,13 @@ const Builder = () => {
               <textarea className="w-full p-2 bg-[#4F4747] bg-opacity-25 rounded"></textarea>
             </div>
           </div>
-          
-          <button className="text-center text-sm bg-[#4F4747] bg-opacity-50 text-white-400 cursor-pointer rounded p-2">+ Add a custom field</button>
+          {customFields.map((_, index) => (
+            <div key={index}>
+              <label className="block text-sm">Custom Field {index + 1}</label>
+              <input type="text" className="w-full p-2 bg-[#4F4747] bg-opacity-25 rounded" />
+            </div>
+          ))}
+          <button type="button" onClick={addCustomField} className="text-center text-sm bg-[#4F4747] bg-opacity-50 text-white-400 cursor-pointer rounded p-2">+ Add a custom field</button>
         </form>
       </div>
   );
